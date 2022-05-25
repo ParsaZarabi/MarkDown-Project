@@ -1,23 +1,23 @@
-import logo from './logo.svg';
+import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import './App.css';
 
+const Editor = ({ content, handleTextareaChange }) => <textarea value={content} autoFocus className='textarea' onChange={handleTextareaChange} />
+
+const Previewer = ({ content }) => <div id='previewer'>{content}</div>
+
 function App() {
+  const [content, setContent] = useState("please type here!");
+
+  const handleTextareaChange = (event) => {
+    setContent(event.target.value)
+  }
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Editor content={content} handleTextareaChange={handleTextareaChange}  />
+      <Previewer content={content} className='markdown' />
+      
     </div>
   );
 }
